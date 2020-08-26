@@ -1,2 +1,22 @@
 .game_container {
   background: tan; }
+
+.game__header {
+  /*text-align: center;*/
+  width: 100%;
+  display: flex;
+  /* establish flex container */
+  flex-direction: row;
+  /* default value; can be omitted */
+  flex-wrap: nowrap;
+  /* default value; can be omitted */
+  justify-content: space-between; }
+  .game__header .game__bomb_counter {
+    width: 100px;
+    margin: 8px; }
+  .game__header .game__reset_button {
+    width: 100px;
+    margin: 8px auto; }
+  .game__header .game__clock {
+    width: 100px;
+    margin: 8px; }

@@ -23,7 +23,8 @@ function Game() {
         <div className={styles.game__bomb_counter}>
           {bombCount}
         </div>
-        <div className={styles.game__clock}>{seconds}asdf</div>
+        <button className={styles.game__reset_button} onClick={()=> setSeconds(0)}>Reset</button>
+        <div className={styles.game__clock}>{seconds}</div>
       </div>
     </div>
   );
