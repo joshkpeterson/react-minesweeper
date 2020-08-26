@@ -1,22 +1,11 @@
 import React from 'react';
-import { appLink } from './app.module.scss';
+import styles from './app.module.scss';
+import Game from 'components/Game/index.js';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className={appLink}
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.page_container}>
+      <Game />
     </div>
   );
 }

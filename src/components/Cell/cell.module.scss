@@ -1,0 +1,22 @@
+.cell {
+  width: 24px;
+  height: 24px;
+  background: tomato;
+  border: 1px blue solid;
+  cursor: pointer;
+  text-align: center;
+
+  &___isRevealed {
+    background: gray;
+
+    width: 24px;
+    height: 24px;
+    border: 1px yellow solid;
+  }
+
+  &__content {
+  }
+}
+
+
+
