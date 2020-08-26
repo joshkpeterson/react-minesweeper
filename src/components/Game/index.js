@@ -44,7 +44,7 @@ function Game() {
         <div className={styles.game__clock}>{seconds}</div>
       </div>
       <div className={styles.game__grid}>
-        {gameData.map((cellData) => <Cell />)}
+        {gameData.map((cellData, index) => <Cell key={index}/>)}
       </div>
     </div>
   );
