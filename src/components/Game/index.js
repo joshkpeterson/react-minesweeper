@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { clone } from 'lodash';
 import styles from './game.module.scss';
 import Cell from 'components/Cell'
-
+import { CELL_TYPES } from 'utils/constants'
 
 const gridSize = 24 * 20;
 const cellDataStub = {
-  nearBombCount: 0,
-  isBomb: false,
+  nearBombCount: 3,
+  type: CELL_TYPES.COUNT,
   isRevealed: false,
 }
 let tempGameData = [];
@@ -44,7 +44,7 @@ function Game() {
         <div className={styles.game__clock}>{seconds}</div>
       </div>
       <div className={styles.game__grid}>
-        {gameData.map((cellData, index) => <Cell key={index}/>)}
+        {gameData.map((cellData, index) => <Cell key={index} data={cellData}/>)}
       </div>
     </div>
   );
