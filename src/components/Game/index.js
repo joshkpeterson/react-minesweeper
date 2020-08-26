@@ -3,21 +3,64 @@ import { clone } from 'lodash';
 import styles from './game.module.scss';
 import Cell from 'components/Cell'
 import { CELL_TYPES } from 'utils/constants'
+import { getNeighbors } from 'utils/setup'
 
 const rowLength = 24;
 const columnLength = 20;
 const gridSize = rowLength * columnLength;
+const bombCount = 20;
 const cellDataStub = {
-  nearBombCount: 3,
-  type: CELL_TYPES.COUNT,
+  nearBombCount: 0,
+  type: CELL_TYPES.EMPTY,
   isRevealed: false,
+  neighbors: [],
 }
 let tempGameData = [];
 
 // Create initial game state for each cell
-for (var i = 0; i < gridSize; i++) {
-    tempGameData.push(clone(cellDataStub));
+for (let i = 0; i < gridSize; i++) {
+  const dataForCell = clone(cellDataStub);
+
+  if (i < bombCount - 1) {
+    dataForCell.type = CELL_TYPES.BOMB;
+  }
+
+  tempGameData.push(dataForCell);
 }
+
+// Randomize bomb position
+tempGameData = _.shuffle(tempGameData);
+
+// get neighbors and mutuate tempGameData
+for (let i = 0; i < gridSize; i++) {
+  let neighbors = getNeighbors(i, tempGameData)
+  
+  if (tempGameData[i].type === CELL_TYPES.BOMB) {
+    _.each(tempGameData, function(cell) {
+      cell.nearBombCount += 1;
+    }
+  }
+
+  tempGameData[i].neighbors = neighbors;
+}
+
+
+// _.each(tempGameData, function(item) {
+//   getNeighbors(item, tempGameData)
+//   if (item.)
+// })
+
+//for all these indices: 
+// edit type
+// for each neighbor, increment nearbombcount
+// for each:  if type is bomb
+
+
+
+
+
+
+
 
 function Game() {
   const [ bombCount, setBombCount ] = useState(20);
@@ -41,54 +84,7 @@ function Game() {
   //   setNeighbors = getNeighbors()
   // }, []);
 
-  const getNeighbors = (index) => {
-    let indexArray = [];
-    let isTop = true,
-        isBottom = true,
-        isLeft = true,
-        isRight = true;
-    let remainder = index % rowLength;
-    // Not left column
-    if (remainder === 0) {
-      indexArray.push(gameData[index - 1]);
-      isLeft = false;
-    }
-    // Not right column
-    if (remainder === 0) {
-      indexArray.push(gameData[index + 1]);
-      isRight = false;
-    }
-    // Not top row
-    if (index - rowLength > -1) {
-      indexArray.push(gameData[index - rowLength]);
-      isTop = false;
-    }
-    // Not bottom row
-    if (index + rowLength > gridSize) {
-      indexArray.push(gameData[index - rowLength]);
-      isBottom = false;
-    }
 
-    // top left
-    if (!isTop && !isLeft) {
-      indexArray.push(gameData[index - rowLength - 1]);
-    }
-    // top right
-    if (!isTop && !isRight) {
-      indexArray.push(gameData[index - rowLength + 1]);
-    }
-    // bottom left
-    if (!isBottom && !isLeft) {
-      indexArray.push(gameData[index + rowLength - 1]);
-    }
-    // bottom right
-    if (!isBottom && !isRight) {
-      indexArray.push(gameData[index + rowLength + 1]);
-    }
-
-
-    return indexArray.map(i => gameData[i])
-  }
 
   return (
     <div className={styles.game_container}>
