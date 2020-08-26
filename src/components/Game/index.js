@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { clone } from 'lodash';
 import styles from './game.module.scss';
+import Cell from 'components/Cell'
 
 
-const gridSize = 40;
+const gridSize = 24 * 20;
 const cellDataStub = {
   nearBombCount: 0,
   isBomb: false,
@@ -41,9 +42,9 @@ function Game() {
         </div>
         <button className={styles.game__reset_button} onClick={()=> setSeconds(0)}>Reset</button>
         <div className={styles.game__clock}>{seconds}</div>
-        <div className={styles.game__grid}>
-          {gameData.map((cellData) => <div>foo</div>)}
-        </div>
+      </div>
+      <div className={styles.game__grid}>
+        {gameData.map((cellData) => <Cell />)}
       </div>
     </div>
   );
