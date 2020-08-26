@@ -19,4 +19,5 @@
     margin: 8px auto; }
   .game__header .game__clock {
     width: 100px;
-    margin: 8px; }
+    margin: 8px;
+    text-align: right; }
