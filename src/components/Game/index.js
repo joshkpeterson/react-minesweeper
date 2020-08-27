@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { clone } from 'lodash';
+import { clone, each, shuffle } from 'lodash';
 import styles from './game.module.scss';
 import Cell from 'components/Cell'
 import { CELL_TYPES } from 'utils/constants'
@@ -29,16 +29,21 @@ for (let i = 0; i < gridSize; i++) {
 }
 
 // Randomize bomb position
-tempGameData = _.shuffle(tempGameData);
+tempGameData = shuffle(tempGameData);
 
 // get neighbors and mutuate tempGameData
 for (let i = 0; i < gridSize; i++) {
-  let neighbors = getNeighbors(i, tempGameData)
+  console.log(i)
+  let neighbors = getNeighbors(i, tempGameData, rowLength, gridSize);
   
   if (tempGameData[i].type === CELL_TYPES.BOMB) {
-    _.each(tempGameData, function(cell) {
-      cell.nearBombCount += 1;
-    }
+    console.log(neighbors)
+    each(neighbors, function(cell) {
+      if (cell.type !== CELL_TYPES.BOMB) {
+        cell.nearBombCount += 1;
+        cell.type = CELL_TYPES.COUNT;
+      }
+    });
   }
 
   tempGameData[i].neighbors = neighbors;
@@ -80,12 +85,6 @@ function Game() {
     return () => clearInterval(interval);
   }, [isPause]);
 
-  // useEffect(() => {
-  //   setNeighbors = getNeighbors()
-  // }, []);
-
-
-
   return (
     <div className={styles.game_container}>
       <div className={styles.game__header}>
@@ -96,7 +95,7 @@ function Game() {
         <div className={styles.game__clock}>{seconds}</div>
       </div>
       <div className={styles.game__grid}>
-        {gameData.map((cellData, index) => <Cell key={index} data={cellData} neighbors={getNeighbors(index)} />)}
+        {gameData.map((cellData, index) => <Cell key={index} data={cellData} />)}
       </div>
     </div>
   );
