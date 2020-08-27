@@ -1,7 +1,7 @@
 const CELL_TYPES = {
   BOMB: 'bomb',
   COUNT: 'count',
-  empty: 'empty'
+  EMPTY: 'empty'
 }
 
 export { CELL_TYPES };
