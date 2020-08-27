@@ -33,11 +33,10 @@ tempGameData = shuffle(tempGameData);
 
 // get neighbors and mutuate tempGameData
 for (let i = 0; i < gridSize; i++) {
-  console.log(i)
   let neighbors = getNeighbors(i, tempGameData, rowLength, gridSize);
   
   if (tempGameData[i].type === CELL_TYPES.BOMB) {
-    console.log(neighbors)
+
     each(neighbors, function(cell) {
       if (cell.type !== CELL_TYPES.BOMB) {
         cell.nearBombCount += 1;

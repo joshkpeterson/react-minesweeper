@@ -6,9 +6,6 @@ const getNeighbors = (index, gameData, rowLength, gridSize) => {
       isRight = true;
   let remainder = index % rowLength;
 
-  if (index === 478) {
-    debugger;
-  }
   // Not left column
   if (remainder !== 0) {
     indexArray.push(index - 1);
@@ -46,10 +43,6 @@ const getNeighbors = (index, gameData, rowLength, gridSize) => {
   if (!isBottom && !isRight) {
     indexArray.push(index + rowLength + 1);
   }
-
-  console.log(indexArray)
-
-console.log(indexArray.map(i => gameData[i]))
 
   return indexArray.map(i => gameData[i]);
 }

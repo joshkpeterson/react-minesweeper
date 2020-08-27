@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './cell.module.scss';
 import classNames from 'classnames';
 import { CELL_TYPES } from 'utils/constants'
@@ -7,6 +7,32 @@ import { CELL_TYPES } from 'utils/constants'
 function Cell(props) {
   let [ isRevealed, setIsRevealed ] = useState(false);
   let [ isFlagged, setIsFlagged ] = useState(false);
+
+  useEffect(() => {
+    console.log('heyy')
+
+    // console.log(
+    //   JSON.stringify(props.data.neighbors.map(item => {
+    //     const { neighbors, ...otherAttributes } = item;
+
+    //     return ({
+    //       neighbors: [],
+    //     ...otherAttributes
+    //     });
+    //   }))
+    // )
+
+
+  },[
+    JSON.stringify(props.data.neighbors.map(item => {
+      const { neighbors, ...otherAttributes } = item;
+
+      return ({
+        neighbors: [],
+      ...otherAttributes
+      });
+    }))
+  ])
 
   const revealCell = (e) => {
     if (!isRevealed) {
@@ -23,11 +49,6 @@ function Cell(props) {
     styles.cell,
     { [styles.cell___isRevealed]: isRevealed }
   );
-
-  // let iconClasses = classNames(
-  //   styles.cell_content,
-  //   { [styles.cell__content]: isRevealed }
-  // );
 
   return (
     <div className={cellClasses} onClick={revealCell} onContextMenu={toggleFlag}>
